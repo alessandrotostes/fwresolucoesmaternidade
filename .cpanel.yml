@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home4/fwreso13/public_html/
+    - export DEPLOYPATH=/home4/fwreso13/fwresolucoesmaternidade.com/
     - chmod 644 ${DEPLOYPATH}.htaccess || true
     - /bin/rsync -a .htaccess $DEPLOYPATH
     - /bin/rsync -a * $DEPLOYPATH --exclude .git --exclude .gitignore --exclude FWResolucoes.zip
