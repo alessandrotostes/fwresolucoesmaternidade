@@ -58,28 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Animação moderna de entrada ao rolar (Intersection Observer)
-    const fadeElements = document.querySelectorAll('h1, h2, h3, p, .img-animate, .group, .faq-box, .step-card');
+    // Animação fluida de entrada ao rolar (Intersection Observer)
+    const revealElements = document.querySelectorAll('.reveal-on-scroll, .step-card, .faq-box');
     
-    // Configura estado inicial das animações por JS
-    fadeElements.forEach((el) => {
-        el.style.opacity = '0';
-        el.style.transform = el.classList.contains('img-animate') || el.classList.contains('step-card')
-            ? 'translateY(30px)' 
-            : 'translateY(20px)';
-        el.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-    });
-
-    // Observer para animar apenas quando entrar na tela
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
+        rootMargin: '0px 0px -40px 0px',
         threshold: 0.05
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
                 observer.unobserve(entry.target); 
@@ -87,5 +78,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);    
 
-    fadeElements.forEach(el => observer.observe(el));
+    revealElements.forEach(el => observer.observe(el));
 });
