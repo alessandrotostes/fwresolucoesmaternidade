@@ -79,5 +79,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);    
 
     revealElements.forEach(el => observer.observe(el));
+
+    // Google Ads — Rastreamento de Conversão nos links de WhatsApp
+    const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+    whatsappLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.getAttribute('href');
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-18337658007/N32jCLnHjdQcEJfpiahE',
+                    'event_callback': function() {
+                        window.open(url, '_blank');
+                    }
+                });
+                // Fallback: abre o link após 1s caso o callback não dispare
+                setTimeout(function() {
+                    window.open(url, '_blank');
+                }, 1000);
+            } else {
+                window.open(url, '_blank');
+            }
+        });
+    });
 });
 
